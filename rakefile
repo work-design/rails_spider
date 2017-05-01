@@ -1,0 +1,284 @@
+begin
+  require 'bundler/setup'
+rescue LoadError
+  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
+end
+
+require 'rdoc/task'
+
+RDoc::Task.new(:rdoc) do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title    = 'TheSpider'
+  rdoc.options << '--line-numbers'
+  rdoc.rdoc_files.include('README.md')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
+APP_RAKEFILE = File.expand_path("../test/dummy/Rakefile", __FILE__)
+load 'rails/tasks/engine.rake'
+
+
+load 'rails/tasks/statistics.rake'
+
+
+
+require 'bundler/gem_tasks'
+
+require 'rake/testtask'
+
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'test'
+  t.pattern = 'test/**/*_test.rb'
+  t.verbose = false
+end
+
+# coding: utf-8
+#!/usr/bin/env ruby
+
+#require 'rubygems'
+#require 'fileutils'
+#require 'open-uri'
+#require 'bundler'
+
+ENV['SPIDER_ENV'] = 'development'
+require File.expand_path './config/environment'
+
+include EventSpider
+
+namespace :first do
+
+  desc 'grab all event of a city for the first time'
+  task :get_all_events do
+    spiders = [Douban]#, Weibo, Waitan, CityMoment]
+    spiders.each do |spider|
+      spider.new.run
+    end
+  end
+
+  # TODO 将不能使用的代理IP删除
+  desc 'get proxy from web'
+  task :test_proxy do
+    proxy_list = EventSpider::Proxy.proxy_list
+    puts proxy_list
+    puts "Proxy IP count: #{proxy_list.size}"
+    pro = EventSpider::Proxy.new
+    proxy_list.each do |proxy|
+      #agent.set_proxy proxy[:ip], proxy[:port]
+      puts "Test proxy IP:#{proxy}"
+      page = pro.get_page_from('http://www.douban.com', proxy, nil, 0)
+      if page
+        puts page.title
+      else
+        puts "Not get page by IP: #{proxy}"
+      end
+    end
+  end
+
+  desc 'Event sequid'
+  task :set_sequid do
+    es = Event.where(sequid: nil)#.order_by(:created_at.asc)
+    #total_count = es.count
+    #limit_count = 100
+    #page = total_count / limit_count
+    #page += 1 if (total_count % limit_count) > 0
+    i = Event.max(:sequid).to_i + 1
+    #(0..page).each do |pg|
+    es.to_a.each do |e|
+      e.update_attribute(:sequid, i)
+      puts "#{e.created_at} | #{e.int_id} |  #{e.sequid}"
+      i += 1
+    end
+    #end
+  end
+
+  desc 'Reset Event sequid number'
+  task :reset_event_sequid do
+    max = Event.max(:sequid)
+    puts "Event sequid max number is #{max}"
+    inc=MongoidAutoInc::Incrementor.new({})
+    res = inc['event_sequid'].set max
+    puts "Set the sequid to the max #{res}"
+  end
+
+end
+
+namespace :everyday do
+  desc 'Update grab and Sync image to Qiniu'
+  task :update_and_sync do
+    Rake::Task["everyday:grab_update"].invoke
+    Rake::Task["everyday:event_image"].invoke
+  end
+
+  desc 'update grab every day'
+  task :grab_update do
+    spiders = [Douban, Weibo, Waitan, CityMoment]
+    spiders.each do |spider|
+      spider.new.grab_update
+    end
+  end
+
+  desc 'download event image and sync to qiniu'
+  task :event_image do
+    logger = Logger.new("log/image.log")
+    images_dir = "images/faces/#{Date.today.to_s.gsub("-", "_")}"
+    FileUtils.mkdir_p(images_dir)
+    logger.info "Make image file folder #{images_dir}"
+
+    events = Event.where(filename: nil).to_a
+    logger.info "There are #{events.count} images need to download"
+    group_len = 800
+    threads = []
+
+    events.each_slice(group_len).each do |event_group|
+      threads << Thread.new do
+        event_group.each do |ent|
+          begin
+            image_data = open(URI.encode(ent.face)){|f| f.read}
+            filetype = File.extname(ent.face).gsub(/\?.*$/, '')
+            filename = "#{images_dir}/face-#{ent.id.to_s}#{filetype}"
+            logger.info "File type:#{filetype} | name:#{filename}"
+            open(filename, "wb") { |f| f.write(image_data) }
+            logger.info "Download #{filename}"
+            ent.update_attribute(:filename, filename)
+            sleep 1
+          rescue => e
+            logger.error e.message
+            # e.backtrace.each do |msg|
+            #   logger.error msg
+            # end
+            sleep 1
+          end
+        end
+      end
+    end
+    threads.map(&:join)
+
+    if events.count > 0
+      pwd = File.dirname(File.expand_path('.', __FILE__))
+      qiniu_config = "#{pwd}/config/qiniu_conf.json"
+      qiniu_sync = "#{pwd}/vendor/qiniu/qrsync"
+      cmd = "#{qiniu_sync} #{qiniu_config}"
+      logger.info "Sync images to QiNiu"
+      `#{cmd}`
+      logger.info "#{cmd} done"
+    end
+
+    threads = []
+    events = Event.where(poster_width: nil).to_a
+    events.each_slice(group_len).each do |event_group|
+      threads << Thread.new do
+        event_group.each do |ent|
+          next if ent.filename.blank?
+          begin
+            ent.update_image_info
+            logger.info "Update image info success with event:#{ent.id}"
+          rescue => e
+            logger.error e.message
+            #e.backtrace.each{|msg| logger.error msg}
+            logger.error "Event update image info wrong:#{ent.url}"
+          end
+        end
+      end
+    end
+    threads.map(&:join)
+  end
+
+  desc 'upate iamge info'
+  task :update_image_info do
+    logger = Logger.new("#{ENV['SPIDER_ENV']}.log")
+    threads = []
+    group_len = 800
+    events = Event.where(poster_width: nil).to_a
+    logger.info 'Start update image info'
+    events.each_slice(group_len).each do |event_group|
+      threads << Thread.new do
+        event_group.each do |ent|
+          next if ent.filename.blank?
+          begin
+            ent.update_image_info
+            logger.info "Update image info success with event:#{ent.id}"
+          rescue => e
+            logger.error e.message
+            #e.backtrace.each{|msg| logger.error msg}
+            logger.error "Event update image info wrong:#{ent.url}"
+          end
+        end
+      end
+    end
+    threads.map(&:join)
+    logger.info 'End of update image info'
+  end
+
+end
+
+namespace :proxy do
+  # 爬取www.youdaili.com上的代理IP
+  # 并校验是否能用
+  # 并保存到文件proxylists.txt中
+  desc 'get youdaili proxy IP'
+  task :proxy_youdaili do
+    used_proxy = EventSpider::Proxy.proxy_list.uniq
+    proxy_spider = EventSpider::Proxy.new(used_proxy)
+    proxy_list = proxy_spider.get_youdaili_proxy
+    proxy_list = proxy_spider.validate_proxy(proxy_list)
+    proxy_spider.write_proxy_to_file(proxy_list)
+  end
+
+  # http://www.xici.net.co/nn/
+  # 抓取代理IP，并校验，再保存到本地文件
+  desc 'get xici.net proxy IP'
+  task :proxy_xici do
+    used_proxy = EventSpider::Proxy.proxy_list.uniq
+    proxy_spider = EventSpider::Proxy.new(used_proxy)
+    proxys = proxy_spider.get_xici_proxy
+    proxys = proxy_spider.validate_proxy(proxys)
+    proxy_spider.write_proxy_to_file(proxys)
+  end
+
+  # 校验本地手动输入代理文件allproxylists.txt
+  desc 'validate allproxylists.txt proxy IP and save to proxylists.txt'
+  task :validate_allproxylists do
+    proxy_list = EventSpider::Proxy.get_allproxylists.uniq
+    proxy_spider = EventSpider::Proxy.new
+    proxys = proxy_spider.validate_proxy(proxy_list)
+    proxy_spider.write_proxy_to_file(proxys)
+  end
+
+
+  # http://api.map.baidu.com/geocoder/v2/?address=%20%E9%87%8D%E5%BA%86%20%E6%B2%99%E5%9D%AA%E5%9D%9D%E5%8C%BA%20NUTS&output=json&ak=A38d59da730152d77b407446a3c0dd2b&callback=showLocation
+  desc 're-get event location from baidu with location is [0.1,0.1]'
+  task :reget_location do
+    Event.where(location: [0.1, 0.1]).each do |event|
+      next if event.place.nil? || event.place == ''
+      baidu_api = URI.escape("http://api.map.baidu.com/geocoder/v2/?address=#{event.place}&output=json&ak=A38d59da730152d77b407446a3c0dd2b")
+      puts baidu_api
+      begin
+        response = Net::HTTP.get_response(URI(baidu_api))
+        data = response.body
+        result = JSON.parse(data)
+        if result["status"] != 0
+          location = [0.0, 0.0]
+        else
+          location = []
+          location << result["result"]["location"]["lng"]
+          location << result["result"]["location"]["lat"]
+        end
+        puts location
+      rescue Timeout::Error
+        i ||= 0
+        if i <= 5
+          retry
+        end
+      rescue => e
+        puts event.place
+        puts e
+        location = [0.1, 0.1]
+      end
+    end
+  end
+
+end
+
+
+
+task default: :test

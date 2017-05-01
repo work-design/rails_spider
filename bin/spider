@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+if ARGV.first
+  str = ARGV.first
+  puts "终端环境:#{str}"
+  ENV['SPIDER_ENV'] = str
+else
+  ENV['SPIDER_ENV'] = 'development'
+  puts "终端环境:development"
+end
+
+require File.expand_path('../../config/environment', __FILE__)
+require 'pry'
+#require 'pry/completion'
+
+Pry.start(__FILE__)
