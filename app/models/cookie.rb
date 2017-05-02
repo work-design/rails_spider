@@ -1,4 +1,5 @@
-class Cookie < ApplicationRecord
+module TheSpider
+  class Cookie < ApplicationRecord
 
   attribute :name, type: String
   attribute :password, type: String
@@ -6,4 +7,6 @@ class Cookie < ApplicationRecord
   attribute :value, type: String
 
 
+  end
 end
+

@@ -1,6 +1,9 @@
-class FailUrl < ApplicationRecord
-  attribute :url, type: String
-  attribute :source, type: String
-  attribute :flag, type: String
+module TheSpider
+  class FailUrl < ApplicationRecord
+    attribute :url, type: String
+    attribute :source, type: String
+    attribute :flag, type: String
 
+  end
 end
+
