@@ -1,8 +1,8 @@
 require 'logger'
 require 'event_spider/config'
 
-module Fetcher
-  class Base
+module TheSpider
+  class Fetcher
     attr_accessor :mechanize, :logger, :event, :error_log
 
     def initialize

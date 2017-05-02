@@ -1,9 +1,7 @@
 module TheSpider
-  class FailUrl < ApplicationRecord
+  class FailedUrl < ApplicationRecord
     attribute :url, type: String
     attribute :source, type: String
     attribute :flag, type: String
-
   end
 end
-
