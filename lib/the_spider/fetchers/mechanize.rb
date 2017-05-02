@@ -5,9 +5,11 @@ module TheSpider
     attr_accessor :mechanize, :logger
 
     def initialize
+      super
       @mechanize = Mechanize.new
       @mechanize.open_timeout = 20
       @mechanize.pluggable_parser.default = @mechanize.pluggable_parser['text/html']
+      @logger = Rails.logger
     end
 
     def save_page(page)

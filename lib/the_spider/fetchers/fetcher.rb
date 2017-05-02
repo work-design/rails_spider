@@ -1,18 +1,8 @@
-require 'logger'
-require 'event_spider/config'
-
 module TheSpider
   class Fetcher
-    attr_accessor :mechanize, :logger, :event, :error_log
 
     def initialize
-      @logger = Logger.new("log/#{ENV['SPIDER_ENV']}.log")
-      @error_log = Logger.new('log/error_trace.log')
-      @event = event_class
-      @mechanize = Mechanize.new
-      @mechanize.open_timeout = 20
-      @mechanize.pluggable_parser.default = @mechanize.pluggable_parser['text/html']
-      @proxy = Proxy.proxy_list
+      @page = ''
     end
 
     def event_class
