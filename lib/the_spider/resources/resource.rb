@@ -1,13 +1,21 @@
 module TheSpider
   class Resource
 
-    def initialize(index, page)
-      @page = ''
+    def initialize(list, page = 'page', item)
+      @list = list
+      @page = page
+      @item = item
+      @fetcher ||= Mechanize.new
     end
 
-    def event_class
-      @event_class = EventSpider.config.event_class.constantize
+    def run
+
     end
+
+    def save
+
+    end
+
 
   end
 end
