@@ -1,4 +1,4 @@
-class CreateTheSpiderLocals < ActiveRecord::Migration[5.1]
+class CreateTheSpiderLocals < ActiveRecord::Migration[5.0]
   def change
     create_table :the_spider_locals do |t|
       t.string :url

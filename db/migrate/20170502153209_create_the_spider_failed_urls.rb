@@ -1,4 +1,4 @@
-class CreateTheSpiderFailedUrls < ActiveRecord::Migration[5.1]
+class CreateTheSpiderFailedUrls < ActiveRecord::Migration[5.0]
   def change
     create_table :the_spider_failed_urls do |t|
       t.string :url

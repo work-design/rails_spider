@@ -1,4 +1,4 @@
-class CreateTheSpiderCookies < ActiveRecord::Migration[5.1]
+class CreateTheSpiderCookies < ActiveRecord::Migration[5.0]
   def change
     create_table :the_spider_cookies do |t|
       t.string :name
