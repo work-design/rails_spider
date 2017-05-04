@@ -9,7 +9,7 @@ module TheSpider
       @mechanize = Mechanize.new
       @mechanize.open_timeout = 20
       @mechanize.pluggable_parser.default = @mechanize.pluggable_parser['text/html']
-      @logger = Rails.logger
+      @logger = Logger.new STDOUT
     end
 
     def save_page(page)
@@ -36,7 +36,7 @@ module TheSpider
     end
 
     def is_grab?(url)
-      event_class.where(url: url).exists? # 表示没有抓取
+      event_class.where(url: url).exists?
     end
 
     def run

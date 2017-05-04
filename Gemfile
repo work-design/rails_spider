@@ -2,9 +2,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'activesupport'
-gem 'mechanize'
-gem 'rest_client'
 
 gem 'casperjs'
 gem 'json'

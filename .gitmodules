@@ -1,0 +1,3 @@
+[submodule "dummy"]
+	path = dummy
+	url = git@github.com:yigexiangfa/dummy.git
