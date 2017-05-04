@@ -13,3 +13,4 @@ gem 'bcrypt'
 
 gem 'exifr'
 gem 'pry'
+gem 'sqlite3'
