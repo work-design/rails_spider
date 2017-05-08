@@ -2,7 +2,9 @@ require 'the_spider/fetchers/mechanize'
 
 module TheSpider
   class Resource
-    attr_reader :fetcher
+    attr_reader :fetcher, :item_path, :list_path, :page_params
+    DEFAULT_EXP = "(/[^\.\/\?]+/)"
+    SYMBOL_EXP = /:\w+/
 
     def initialize(**options)
       @host = options[:host]
@@ -23,8 +25,12 @@ module TheSpider
       local.save
     end
 
-    def list_path
+    def list_exp
+      Regexp.new(list_path.gsub SYMBOL_EXP, DEFAULT_EXP)
+    end
 
+    def item_exp
+      Regexp.new(item_path.gsub SYMBOL_EXP, DEFAULT_EXP)
     end
 
   end

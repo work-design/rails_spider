@@ -17,6 +17,10 @@ module TheSpider
       mechanize.get(url).search('body')
     end
 
+    def page
+
+    end
+
     def change_another_proxy(proxy_hash=nil, header_hash=nil)
       if proxy_hash && proxy_hash[:ip] && proxy_hash[:port]
         ip = proxy_hash[:ip]
