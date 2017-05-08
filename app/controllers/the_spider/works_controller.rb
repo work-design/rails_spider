@@ -4,7 +4,7 @@ module TheSpider
     before_action :set_work, only: [:show, :edit, :update, :destroy]
 
     def index
-      @works = Work.all
+      @works = Work.page(params[:page])
     end
 
     def show
@@ -46,7 +46,7 @@ module TheSpider
     end
 
     def work_params
-      params.fetch(:work, {})
+      params.fetch(:work, {}).permit(:name, :list, :item, :page_params)
     end
   end
 end

@@ -1,17 +1,7 @@
-<%= form_with(model: work, local: true) do |form| %>
-  <% if work.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(work.errors.count, "error") %> prohibited this work from being saved:</h2>
-
-      <ul>
-      <% work.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<%= default_form_with(model: work, local: true) do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_field :list %>
+  <%= f.text_field :item %>
+  <%= f.text_field :page_params %>
+  <%= f.submit %>
 <% end %>

@@ -1,3 +1,5 @@
+require 'the_spider/fetchers/mechanize'
+
 module TheSpider
   class Resource
 
@@ -5,7 +7,7 @@ module TheSpider
       @list = list
       @page = page
       @item = item
-      @fetcher ||= Mechanize.new
+      @fetcher ||= TheSpider::Mechanize.new
     end
 
     def run

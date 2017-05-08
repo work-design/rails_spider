@@ -1,28 +1,3 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Works</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @works.each do |work| %>
-      <tr>
-        <td><%= link_to 'Show', work %></td>
-        <td><%= link_to 'Edit', edit_work_path(work) %></td>
-        <td><%= link_to 'Destroy', work, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Work', new_work_path %>
 <div>
 
   <div class="ui top attached menu borderless">
@@ -30,18 +5,19 @@
   </div>
 
   <div class="ui segment top attached">
-    <%= link_to 'Add New', new_admin_user_path, class: 'ui teal button' %>
+    <%= link_to 'Add New', new_work_path, class: 'ui teal button' %>
   </div>
 
   <table class="ui bottom attached table">
     <thead>
     <tr>
       <th>ID</th>
-      <th>Email</th>
-      <th>Mobile</th>
-      <th>Created At</th>
-      <th>Last Login At</th>
+      <th>Name</th>
+      <th>List</th>
+      <th>Item</th>
+      <th>PageParmas</th>
       <th>Disable</th>
+      <th></th>
       <th></th>
     </tr>
     </thead>
@@ -49,6 +25,11 @@
     <tbody>
     <% @works.each do |work| %>
       <tr>
+        <td><%= work.id %></td>
+        <td><%= work.name %></td>
+        <td><%= work.list %></td>
+        <td><%= work.item %></td>
+        <td><%= work.page_params %></td>
         <td><%= link_to 'Show', work %></td>
         <td><%= link_to 'Edit', edit_work_path(work) %></td>
         <td><%= link_to 'Destroy', work, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -57,7 +38,5 @@
     </tbody>
   </table>
 
-  <%= paginate @users %>
+  <%= paginate @works %>
 </div>
-
-<%= js_load(root: TheAuth::Engine.root) %>

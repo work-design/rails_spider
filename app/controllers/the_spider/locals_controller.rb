@@ -6,7 +6,7 @@ module TheSpider
 
     # GET /locals
     def index
-      @locals = Local.all
+      @locals = Local.page(params[:page])
     end
 
     # GET /locals/1

@@ -2,7 +2,7 @@ module TheSpider
   class Work < ApplicationRecord
 
     def resource
-      @resource ||= Resource.new(list, page, item)
+      @resource ||= Resource.new(list, page_params, item)
     end
 
     def run

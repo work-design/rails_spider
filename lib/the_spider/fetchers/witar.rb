@@ -1,5 +1,4 @@
 require 'mechanize'
-require 'the_spider/fetchers/base'
 
 module TheSpider
   class Mechanize < Fetcher
@@ -7,7 +6,7 @@ module TheSpider
 
     def initialize
       super
-      @mechanize = ::Mechanize.new
+      @mechanize = Mechanize.new
       @mechanize.open_timeout = 20
       @mechanize.pluggable_parser.default = @mechanize.pluggable_parser['text/html']
       @logger = Logger.new STDOUT
