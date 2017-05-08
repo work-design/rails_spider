@@ -13,13 +13,8 @@ module TheSpider
       @logger = Logger.new STDOUT
     end
 
-    def save_page(page)
-      begin
-        page.save_as("html/#{Date.today.to_s}/#{page.uri.to_s.split('http://').last.chomp('/')}")
-      rescue => e
-        logger.error e.message
-        logger.warn "cann't save page #{page.uri}"
-      end
+    def body(url)
+      mechanize.get(url).search('body')
     end
 
     def change_another_proxy(proxy_hash=nil, header_hash=nil)
