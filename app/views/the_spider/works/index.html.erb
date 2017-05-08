@@ -13,6 +13,7 @@
     <tr>
       <th>ID</th>
       <th>Name</th>
+      <th>Host</th>
       <th>List</th>
       <th>Item</th>
       <th>PageParmas</th>
@@ -27,8 +28,9 @@
       <tr>
         <td><%= work.id %></td>
         <td><%= work.name %></td>
-        <td><%= work.list %></td>
-        <td><%= work.item %></td>
+        <td><%= work.host %></td>
+        <td><%= work.list_path %></td>
+        <td><%= work.item_path %></td>
         <td><%= work.page_params %></td>
         <td><%= link_to 'Show', work %></td>
         <td><%= link_to 'Edit', edit_work_path(work) %></td>

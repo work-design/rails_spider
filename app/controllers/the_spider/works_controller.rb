@@ -46,7 +46,7 @@ module TheSpider
     end
 
     def work_params
-      params.fetch(:work, {}).permit(:name, :list, :item, :page_params)
+      params.fetch(:work, {}).permit(:name, :host, :list_path, :item_path, :page_params)
     end
   end
 end
