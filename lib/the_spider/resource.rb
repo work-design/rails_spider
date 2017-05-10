@@ -3,7 +3,7 @@ require 'the_spider/fetchers/mechanize'
 module TheSpider
   class Resource
     attr_reader :fetcher, :item_path, :list_path, :page_params
-    DEFAULT_EXP = "(/[^\.\/\?]+/)"
+    DEFAULT_EXP = "([^\/.?]+)"
     SYMBOL_EXP = /:\w+/
 
     def initialize(**options)
@@ -18,6 +18,11 @@ module TheSpider
       save(item_path)
     end
 
+    def dry_run
+      list_path
+      fetcher.links()
+    end
+
     def save(url)
       body = fetcher.body(url)
       local = Local.find_or_initialize_by url: url
@@ -25,8 +30,8 @@ module TheSpider
       local.save
     end
 
-    def list_exp
-      Regexp.new(list_path.gsub SYMBOL_EXP, DEFAULT_EXP)
+    def list_url
+      
     end
 
     def item_exp

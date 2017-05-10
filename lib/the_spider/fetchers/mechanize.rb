@@ -13,12 +13,22 @@ module TheSpider
       @logger = Logger.new STDOUT
     end
 
-    def body(url)
-      mechanize.get(url).search('body')
+    def page(url)
+      mechanize.get(url)
     end
 
-    def page
+    def body(url)
+      page(url).search('body')
+    end
 
+    def links(url)
+      page(url).links.map do |link|
+        begin
+          link.resolved_uri.to_s
+        rescue ::Mechanize::UnsupportedSchemeError
+          ''
+        end
+      end
     end
 
     def change_another_proxy(proxy_hash=nil, header_hash=nil)
