@@ -1,7 +1,7 @@
 require_dependency 'the_spider/application_controller'
 module TheSpider
   class WorksController < ApplicationController
-    before_action :set_work, only: [:show, :edit, :update, :destroy]
+    before_action :set_work, only: [:show, :edit, :update, :run, :destroy]
 
     def index
       @works = Work.page(params[:page])
@@ -14,9 +14,6 @@ module TheSpider
       @work = Work.new
     end
 
-    def edit
-    end
-
     def create
       @work = Work.new(work_params)
 
@@ -27,12 +24,19 @@ module TheSpider
       end
     end
 
+    def edit
+    end
+
     def update
       if @work.update(work_params)
         redirect_to @work, notice: 'Work was successfully updated.'
       else
         render :edit
       end
+    end
+
+    def run
+      WorkJob.perform_later(@work.id)
     end
 
     def destroy

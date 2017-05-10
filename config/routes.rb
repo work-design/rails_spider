@@ -1,6 +1,8 @@
 TheSpider::Engine.routes.draw do
   
   resources :locals
-  resources :works
+  resources :works do
+    patch :run, on: :member
+  end
 
 end
