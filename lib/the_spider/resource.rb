@@ -3,6 +3,7 @@ require 'the_spider/fetchers/mechanize'
 module TheSpider
   class Resource
     attr_reader :fetcher, :host, :item_path, :list_path, :page_params
+    attr_accessor :page
     DEFAULT_EXP = "([^\/.?]+)"
     SYMBOL_EXP = /:\w+/
 
@@ -11,12 +12,19 @@ module TheSpider
       @list_path = options[:list_path]
       @item_path = options[:item_path]
       @page_params = options[:page_params]
+      @page = 1
       @fetcher ||= TheSpider::Mechanize.new
     end
 
     def run
-      get_items.each do |item|
-        save(item)
+      items = get_items
+
+      while items.size > 0 do
+        items.each do |item|
+          save(item)
+        end
+        self.page += 1
+        items = get_items
       end
     end
 
@@ -32,7 +40,13 @@ module TheSpider
     end
 
     def list_url
-      URI.join host, list_path
+      list_url = URI.join host, list_path
+      if page.to_i > 0
+        page_query = URI.encode_www_form page_params => page
+        list_url.query = page_query
+      end
+
+      list_url
     end
 
     def item_exp
