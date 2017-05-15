@@ -1,7 +1,7 @@
 module TheSpider
   class Szlawyers < Parser
 
-    
+
     def name
       doc.at_css('span#lawlist_LawerName').text
     end

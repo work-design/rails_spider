@@ -1,6 +1,6 @@
 module TheSpider
   class Local < ApplicationRecord
-
+    belongs_to :work
 
 
     def parser
