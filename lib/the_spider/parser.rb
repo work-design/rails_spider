@@ -6,5 +6,9 @@ module TheSpider
       @doc = Nokogiri::HTML(body)
     end
 
+    def save
+      raise 'Should implement in subclass'
+    end
+
   end
 end
