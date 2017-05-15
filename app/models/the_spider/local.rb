@@ -7,5 +7,9 @@ module TheSpider
       @parser ||= Parser.new(self.body)
     end
 
+    def run
+
+    end
+
   end
 end

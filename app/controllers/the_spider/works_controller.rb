@@ -39,6 +39,10 @@ module TheSpider
       WorkJob.perform_later(@work.id)
     end
 
+    def parser
+      ParserJob.perform_later(@work.id)
+    end
+
     def destroy
       @work.destroy
       redirect_to works_url, notice: 'Work was successfully destroyed.'
