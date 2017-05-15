@@ -50,7 +50,7 @@ module TheSpider
     end
 
     def work_params
-      params.fetch(:work, {}).permit(:name, :host, :list_path, :item_path, :page_params)
+      params.fetch(:work, {}).permit(:name, :parser_name, :host, :list_path, :item_path, :page_params)
     end
   end
 end

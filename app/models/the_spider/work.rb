@@ -2,11 +2,15 @@ module TheSpider
   class Work < ApplicationRecord
 
     def resource
-      @resource ||= Resource.new(host: host, list_path: list_path, item_path: item_path, page_params: page_params)
+      @resource ||= Resource.new(self)
     end
 
     def run
       @resource.run
+    end
+
+    def parser
+      @parser ||= self.parser_name.to_s.safe_constantize
     end
 
   end

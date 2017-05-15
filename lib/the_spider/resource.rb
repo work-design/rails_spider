@@ -2,16 +2,17 @@ require 'the_spider/fetchers/mechanize'
 
 module TheSpider
   class Resource
-    attr_reader :fetcher, :host, :item_path, :list_path, :page_params
+    attr_reader :fetcher, :work, :host, :item_path, :list_path, :page_params
     attr_accessor :page
     DEFAULT_EXP = "([^\/.?]+)"
     SYMBOL_EXP = /:\w+/
 
-    def initialize(**options)
-      @host = options[:host]
-      @list_path = options[:list_path]
-      @item_path = options[:item_path]
-      @page_params = options[:page_params]
+    def initialize(work, **options)
+      @work = work
+      @host = work.host
+      @list_path = work.list_path
+      @item_path = work.item_path
+      @page_params = work.page_params
       @page = 1
       @fetcher ||= TheSpider::Mechanize.new
     end
@@ -34,7 +35,7 @@ module TheSpider
 
     def save(url)
       body = fetcher.body(url)
-      local = Local.find_or_initialize_by url: url
+      local = Local.find_or_initialize_by url: url, work_id: work.id
       local.body = body
       local.save
     end

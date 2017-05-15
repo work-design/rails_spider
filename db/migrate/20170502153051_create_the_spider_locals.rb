@@ -1,6 +1,7 @@
 class CreateTheSpiderLocals < ActiveRecord::Migration[5.0]
   def change
     create_table :the_spider_locals do |t|
+      t.references :work
       t.string :url
       t.text :body
       t.text :draft
