@@ -1,6 +1,0 @@
-[submodule "dummy"]
-	path = dummy
-	url = git@github.com:yigexiangfa/dummy.git
-[submodule "test/dummy"]
-	path = test/dummy
-	url = git@github.com:yigexiangfa/dummy.git
