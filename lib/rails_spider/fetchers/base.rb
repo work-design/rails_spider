@@ -1,4 +1,4 @@
-module TheSpider
+module RailsSpider
   class Fetcher
 
     def initialize
@@ -66,7 +66,7 @@ module TheSpider
         port = @proxy[index][:port]
       end
       @mechanize.set_proxy ip, port
-      
+
       @mechanize.request_headers = header_hash unless header_hash.nil?
     end
 
@@ -90,7 +90,7 @@ module TheSpider
 
       @newlinks.each do |link|
         @city = link['city'] unless link['city'].blank?
-        grab_list_link(link['url']) 
+        grab_list_link(link['url'])
       end
 
       logger.info "End of #{self.class} Spider grab_update."

@@ -1,4 +1,4 @@
-module TheSpider
+module RailsSpider
   class WorkJob < ApplicationJob
     queue_as :default
 

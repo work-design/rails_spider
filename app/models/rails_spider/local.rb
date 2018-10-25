@@ -1,4 +1,4 @@
-module TheSpider
+module RailsSpider
   class Local < ApplicationRecord
     belongs_to :work
 

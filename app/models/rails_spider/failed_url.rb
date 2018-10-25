@@ -1,4 +1,4 @@
-module TheSpider
+module RailsSpider
   class FailedUrl < ApplicationRecord
     attribute :url, type: String
     attribute :source, type: String

@@ -1,4 +1,4 @@
-module TheSpider
+module RailsSpider
   class Szlawyers < Parser
 
     def name

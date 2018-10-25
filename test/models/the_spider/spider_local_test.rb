@@ -1,6 +1,6 @@
 require 'test_helper'
 
-module TheSpider
+module RailsSpider
   class SpiderLocalTest < ActiveSupport::TestCase
     # test "the truth" do
     #   assert true

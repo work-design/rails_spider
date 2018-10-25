@@ -1,11 +1,11 @@
 require 'test_helper'
 
-module TheSpider
+module RailsSpider
   class WorksControllerTest < ActionDispatch::IntegrationTest
     include Engine.routes.url_helpers
 
     setup do
-      @work = the_spider_works(:one)
+      @work = rails_spider_works(:one)
     end
 
     test "should get index" do

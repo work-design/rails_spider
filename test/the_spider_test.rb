@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class TheSpider::Test < ActiveSupport::TestCase
+class RailsSpider::Test < ActiveSupport::TestCase
   test "truth" do
-    assert_kind_of Module, TheSpider
+    assert_kind_of Module, RailsSpider
   end
 end

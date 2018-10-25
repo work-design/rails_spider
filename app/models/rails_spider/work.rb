@@ -1,4 +1,4 @@
-module TheSpider
+module RailsSpider
   class Work < ApplicationRecord
     has_many :locals
 

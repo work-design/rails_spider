@@ -1,4 +1,4 @@
-# TheSpider
+# RailsSpider
 Short description and motivation.
 
 ## Usage
@@ -13,7 +13,7 @@ How to use my plugin.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'the_spider'
+gem 'rails_spider'
 ```
 
 And then execute:
@@ -23,7 +23,7 @@ $ bundle
 
 Or install it yourself as:
 ```bash
-$ gem install the_spider
+$ gem install rails_spider
 ```
 
 ## Contributing

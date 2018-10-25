@@ -1,11 +1,11 @@
 require 'test_helper'
 
-module TheSpider
+module RailsSpider
   class LocalsControllerTest < ActionDispatch::IntegrationTest
     include Engine.routes.url_helpers
 
     setup do
-      @local = the_spider_locals(:one)
+      @local = rails_spider_locals(:one)
     end
 
     test "should get index" do

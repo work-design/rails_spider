@@ -1,5 +1,5 @@
-require_dependency 'the_spider/application_controller'
-module TheSpider
+require_dependency 'rails_spider/application_controller'
+module RailsSpider
   class WorksController < ApplicationController
     before_action :set_work, only: [:show, :edit, :update, :run, :destroy]
 

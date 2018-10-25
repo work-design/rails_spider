@@ -1,7 +1,7 @@
 require 'mechanize'
-require 'the_spider/fetchers/base'
+require 'rails_spider/fetchers/base'
 
-module TheSpider
+module RailsSpider
   class Mechanize < Fetcher
     attr_accessor :mechanize, :logger
 
@@ -41,7 +41,7 @@ module TheSpider
         port = @proxy[index][:port]
       end
       @mechanize.set_proxy ip, port
-      
+
       @mechanize.request_headers = header_hash unless header_hash.nil?
     end
 
@@ -65,7 +65,7 @@ module TheSpider
 
       @newlinks.each do |link|
         @city = link['city'] unless link['city'].blank?
-        grab_list_link(link['url']) 
+        grab_list_link(link['url'])
       end
 
       logger.info "End of #{self.class} Spider grab_update."

@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :the_spider do
+# task :rails_spider do
 #   # Task goes here
 # end

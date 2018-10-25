@@ -1,6 +1,6 @@
-require 'the_spider/fetchers/mechanize'
+require 'rails_spider/fetchers/mechanize'
 
-module TheSpider
+module RailsSpider
   class Resource
     attr_reader :fetcher, :work, :host, :item_path, :list_path, :page_params
     attr_accessor :page
@@ -14,7 +14,7 @@ module TheSpider
       @item_path = work.item_path
       @page_params = work.page_params
       @page = 1
-      @fetcher ||= TheSpider::Mechanize.new
+      @fetcher ||= RailsSpider::Mechanize.new
     end
 
     def run

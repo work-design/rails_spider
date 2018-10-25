@@ -1,6 +1,6 @@
-require_dependency "the_spider/application_controller"
+require_dependency "rails_spider/application_controller"
 
-module TheSpider
+module RailsSpider
   class LocalsController < ApplicationController
     before_action :set_local, only: [:show, :edit, :update, :destroy]
 

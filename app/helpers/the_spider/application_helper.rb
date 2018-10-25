@@ -1,4 +1,4 @@
-module TheSpider
+module RailsSpider
   module ApplicationHelper
   end
 end

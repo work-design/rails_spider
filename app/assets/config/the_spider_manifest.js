@@ -1,4 +1,4 @@
-//= link_directory ../javascripts/the_spider .js
-//= link_directory ../stylesheets/the_spider .css
-//= link the_spider/application.js
-//= link the_spider/application.css
+//= link_directory ../javascripts/rails_spider .js
+//= link_directory ../stylesheets/rails_spider .css
+//= link rails_spider/application.js
+//= link rails_spider/application.css

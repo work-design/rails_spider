@@ -1,4 +1,4 @@
-module TheSpider
+module RailsSpider
   class Parser
     attr_accessor :doc
 

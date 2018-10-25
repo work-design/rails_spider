@@ -1,5 +1,5 @@
-TheSpider::Engine.routes.draw do
-  
+Rails.application.routes.draw do
+
   resources :locals
   resources :works do
     patch :run, on: :member

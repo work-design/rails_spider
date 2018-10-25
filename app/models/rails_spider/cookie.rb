@@ -1,4 +1,4 @@
-module TheSpider
+module RailsSpider
   class Cookie < ApplicationRecord
     attribute :name, type: String
     attribute :password, type: String

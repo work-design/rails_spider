@@ -1,4 +1,4 @@
-module TheSpider
+module RailsSpider
   class ParserJob < ApplicationJob
     queue_as :default
 
