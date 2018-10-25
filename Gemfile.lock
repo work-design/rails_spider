@@ -2,10 +2,10 @@ PATH
   remote: .
   specs:
     rails_spider (0.1.0)
-      kimurai
-      mechanize (>= 2.7)
-      rails (>= 5.0)
-      watir (>= 6.2.0)
+      kimurai (>= 1.2, <= 2.0)
+      mechanize (>= 2.7, <= 2.8)
+      rails (>= 5.0, <= 6.0)
+      watir (>= 6.2.0, <= 7.0)
 
 GEM
   remote: https://rubygems.org/
