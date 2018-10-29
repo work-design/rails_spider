@@ -1,33 +1,12 @@
 # RailsSpider
-Short description and motivation.
 
-## Usage
-How to use my plugin.
-日志在development.log，错误日志在error.log中
+`RailsSpider`是一个面向运营人员的爬虫管理工具，大部分情况下不需要写代码，仅仅通过后台一些简单的配置，便能够添加新的站点；
 
-代理IP，存在在文件proxy/proxylists.txt，如要更新代理IP，执行rake rake proxy:proxy_youdaili，会更新proxy/proxylists.txt
+`RailsSpider`基于[kimurai](https://github.com/vifreefly/kimuraframework)这个优秀的ruby爬虫通用框架。
 
+## 特性
+* 面向运营人员；
 
-
-## Installation
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'rails_spider'
-```
-
-And then execute:
-```bash
-$ bundle
-```
-
-Or install it yourself as:
-```bash
-$ gem install rails_spider
-```
-
-## Contributing
-Contribution directions go here.
-
-## License
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+## todo
+-[] 添加并发支持；
+-[] 添加代理支持；

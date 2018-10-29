@@ -1,6 +1,0 @@
-require 'event_spider/strategies/base'
-require 'event_spider/strategies/douban'
-require 'event_spider/strategies/weibo'
-require 'event_spider/strategies/qunar'
-require 'event_spider/strategies/waitan'
-require 'event_spider/strategies/citymoment'
