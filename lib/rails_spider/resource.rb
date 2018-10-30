@@ -1,4 +1,3 @@
-require 'rails_spider/fetchers/mechanize'
 
 module RailsSpider
   class Resource

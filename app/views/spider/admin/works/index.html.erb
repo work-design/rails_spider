@@ -1,44 +1,41 @@
-<div>
-
-  <div class="ui top attached menu borderless">
-    <div class="item"><strong>Users</strong></div>
-  </div>
-
-  <div class="ui segment top attached">
-    <%= link_to 'Add New', new_work_path, class: 'ui teal button' %>
-  </div>
-
-  <table class="ui bottom attached table">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Host</th>
-      <th>List</th>
-      <th>Item</th>
-      <th>PageParmas</th>
-      <th>Disable</th>
-      <th></th>
-      <th></th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <% @works.each do |work| %>
-      <tr>
-        <td><%= work.id %></td>
-        <td><%= work.name %></td>
-        <td><%= work.host %></td>
-        <td><%= work.list_path %></td>
-        <td><%= work.item_path %></td>
-        <td><%= work.page_params %></td>
-        <td><%= link_to '运行', run_work_path(work), method: :patch, remote: true, data: { confirm: 'Are you sure?' }, class: 'ui blue label' %></td>
-        <td><%= link_to 'Edit', edit_work_path(work) %></td>
-        <td><%= link_to 'Destroy', work, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-
-  <%= paginate @works %>
+<div class="ui top attached menu borderless">
+  <div class="item"><strong>Users</strong></div>
 </div>
+
+<div class="ui segment top attached">
+  <%= link_to 'Add New', new_work_path, class: 'ui teal button' %>
+</div>
+
+<table class="ui bottom attached table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Host</th>
+    <th>List</th>
+    <th>Item</th>
+    <th>PageParmas</th>
+    <th>Disable</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @works.each do |work| %>
+    <tr>
+      <td><%= work.id %></td>
+      <td><%= work.name %></td>
+      <td><%= work.host %></td>
+      <td><%= work.list_path %></td>
+      <td><%= work.item_path %></td>
+      <td><%= work.page_params %></td>
+      <td><%= link_to '运行', run_work_path(work), method: :patch, remote: true, data: { confirm: 'Are you sure?' }, class: 'ui blue label' %></td>
+      <td><%= link_to 'Edit', edit_work_path(work) %></td>
+      <td><%= link_to 'Destroy', work, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @works %>
