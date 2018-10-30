@@ -1,8 +1,0 @@
-<%= form_with model: @spider_resource, local: true do |f| %>
-  <%= render 'shared/error_messages', target: @spider_resource %>
-  <%= f.text_field :code %>
-  <%= f.text_field :xpath %>
-  <%= f.text_field :css %>
-  <%= f.text_field :squish %>
-  <%= f.submit %>
-<% end %>

@@ -1,0 +1,9 @@
+<% form_object = default_form_object(@spider_work, on: { wrapper_id: true }) %>
+
+var template = '<%= j(render partial: 'item_field', locals: { f: form_object, index: UidHelper.sec_uuid }) %>'
+
+$('#spider_work_spider_resources_<%= params[:index] %>').after(template);
+
+$('[data-title="spider_work_spider_resources"]').dropdown({
+  placeholder: true
+});

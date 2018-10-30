@@ -7,6 +7,7 @@ class Spider::Admin::SpiderWorksController < Spider::Admin::BaseController
 
   def new
     @spider_work = SpiderWork.new
+    @spider_work.spider_resources.build
   end
 
   def create
@@ -23,6 +24,9 @@ class Spider::Admin::SpiderWorksController < Spider::Admin::BaseController
   end
 
   def edit
+    if @spider_work.spider_resources.count == 0
+      @spider_work.spider_resources.build
+    end
   end
 
   def update
@@ -31,6 +35,15 @@ class Spider::Admin::SpiderWorksController < Spider::Admin::BaseController
     else
       render :edit
     end
+  end
+
+  def add_item
+    @spider_work = SpiderWork.new
+    @spider_work.spider_resources.build
+  end
+
+  def remove_item
+
   end
 
   def destroy
@@ -49,7 +62,8 @@ class Spider::Admin::SpiderWorksController < Spider::Admin::BaseController
       :host,
       :list_path,
       :item_path,
-      :page_params
+      :page_params,
+      spider_resources_attributes: {}
     )
   end
 

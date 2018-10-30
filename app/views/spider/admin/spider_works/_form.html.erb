@@ -5,5 +5,8 @@
   <%= f.text_field :list_path %>
   <%= f.text_field :item_path %>
   <%= f.text_field :page_params %>
+  <%= f.fields :spider_resources, on: { wrapper_all: false, label: false, placeholder: true }, css: { wrapper_input: 'two wide field' } do |ef| %>
+    <%= render partial: 'item_form', locals: { ef: ef } %>
+  <% end %>
   <%= f.submit %>
 <% end %>

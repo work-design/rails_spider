@@ -1,0 +1,24 @@
+<div class="inline fields" id="spider_work_spider_resources_<%= ef.index %>" data-title="spider_work_spider_resources">
+  <% if ef.index == 0 %>
+    <%= ef.options[:parent_builder].label :spider_resources %>
+  <% else %>
+    <label class="six wide field"></label>
+  <% end %>
+  
+  <%= ef.text_field :code %>
+  <%= ef.text_field :xpath %>
+  <%= ef.text_field :css %>
+  
+  <div class="field">
+    <%= link_to add_item_admin_spider_works_path('item', index: ef.index), data: { title: 'add_item' }, remote: true do %>
+      <i class="plus circle icon"></i>
+    <% end %>
+    <% if ef.object.id %>
+      <%= ef.check_box :_destroy, { on: { offset: false }, css: { wrapper_checkbox: 'ui checkbox' }, checked: true }, 0, 1 %>
+    <% else %>
+      <%= link_to remove_item_admin_spider_works_path('item', index: ef.index), remote: true do %>
+        <i class="minus circle icon"></i>
+      <% end %>
+    <% end %>
+  </div>
+</div>

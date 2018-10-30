@@ -1,0 +1,3 @@
+<%= f.fields :spider_resources, child_index: index, on: { wrapper_all: false, label: false, placeholder: true }, css: { wrapper_input: 'two wide field' } do |ef| %>
+  <%= render partial: 'item_form', locals: { ef: ef } %>
+<% end %>
