@@ -1,0 +1,49 @@
+<div class="ui top attached borderless menu">
+  <div class="header item">Admin Spider Resources</div>
+  <div class="right menu">
+    <div class="item">
+      <%= link_to 'New Admin Spider Resource', new_admin_spider_resource_path, class: 'ui teal button' %>
+    </div>
+  </div>
+</div>
+
+<div class="ui attached segment">
+  <%= render 'search_form' %>
+</div>
+
+<table class="ui bottom attached table">
+  <thead>
+    <tr>
+      <th><%= SpiderResource.human_attribute_name(:id) %></th>
+      <th><%= SpiderResource.human_attribute_name(:code) %></th>
+      <th><%= SpiderResource.human_attribute_name(:xpath) %></th>
+      <th><%= SpiderResource.human_attribute_name(:css) %></th>
+      <th><%= SpiderResource.human_attribute_name(:squish) %></th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @spider_resources.each do |spider_resource| %>
+    <tr>
+      <td><%= spider_resource.id %></td>
+      <td><%= spider_resource.code %></td>
+      <td><%= spider_resource.xpath %></td>
+      <td><%= spider_resource.css %></td>
+      <td><%= spider_resource.squish %></td>
+      <td class="ui labels">
+        <%= link_to admin_spider_resource_path(spider_resource), data: { tooltip: t('.show') }, class: 'ui blue mini icon button' do %>
+          <i class="location arrow icon"></i>
+        <% end %>
+        <%= link_to edit_admin_spider_resource_path(spider_resource), data: { tooltip: t('.edit') }, class: 'ui pink mini icon button' do %>
+          <i class="pencil alternate icon"></i>
+        <% end %>
+        <%= link_to admin_spider_resource_path(spider_resource), method: :delete, data: { tooltip: t('.destroy'), confirm: 'Are you sure?' }, class: 'ui red mini icon button' do %>
+          <i class="times icon"></i>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @spider_resources %>

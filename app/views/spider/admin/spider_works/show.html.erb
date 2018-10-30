@@ -1,0 +1,30 @@
+<div class="ui segment breadcrumb">
+  <%= link_to 'Back', admin_spider_works_path, class: 'section' %>
+  <div class="divider">/</div>
+  <div class="active section">Show</div>
+</div>
+
+<table class="ui very basic large table">
+  <tbody>
+    <tr>
+      <td class="right aligned"><%= SpiderWork.human_attribute_name(:name) %></td>
+      <td><%= @spider_work.name %></td>
+    </tr>
+    <tr>
+      <td class="right aligned"><%= SpiderWork.human_attribute_name(:host) %></td>
+      <td><%= @spider_work.host %></td>
+    </tr>
+    <tr>
+      <td class="right aligned"><%= SpiderWork.human_attribute_name(:list_path) %></td>
+      <td><%= @spider_work.list_path %></td>
+    </tr>
+    <tr>
+      <td class="right aligned"><%= SpiderWork.human_attribute_name(:item_path) %></td>
+      <td><%= @spider_work.item_path %></td>
+    </tr>
+    <tr>
+      <td class="right aligned"><%= SpiderWork.human_attribute_name(:page_params) %></td>
+      <td><%= @spider_work.page_params %></td>
+    </tr>
+  </tbody>
+</table>
