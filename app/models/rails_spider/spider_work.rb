@@ -4,12 +4,12 @@ class SpiderWork < ApplicationRecord
 
   accepts_nested_attributes_for :spider_resources, allow_destroy: true, reject_if: :all_blank
 
-  def resource
-    @resource ||= Resource.new(self)
+  def spider
+    @spider ||= ApplicationSpider.new
   end
 
   def run
-    @resource.run
+    ApplicationSpider.crawl!
   end
 
   def parser
