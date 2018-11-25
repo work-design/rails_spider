@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.version = RailsSpider::VERSION
   s.authors = ['qinmingyuan']
   s.email = ['mingyuan0715@foxmail.com']
-  s.homepage = 'https://github.com/yougexiangfa/rails_spider'
+  s.homepage = 'https://github.com/work-design/rails_spider'
   s.summary = 'Summary of RailsSpider.'
   s.description = 'Description of RailsSpider.'
   s.license = 'LGPL-3.0'
