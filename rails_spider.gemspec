@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
     'README.md'
   ]
 
-  s.add_dependency 'rails', '>= 5.0', '<= 6.0'
   s.add_dependency 'mechanize', '>= 2.7', '<= 2.8'
   s.add_dependency 'kimurai', '>= 1.2', '<= 2.0'
   s.add_dependency 'rails_com', '~> 1.2'
