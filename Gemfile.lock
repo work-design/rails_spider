@@ -163,7 +163,7 @@ GEM
       selenium-webdriver
       thor
       whenever
-    loofah (2.9.0)
+    loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -195,7 +195,7 @@ GEM
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
     nio4r (2.5.4)
-    nokogiri (1.13.6)
+    nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     pmap (1.1.1)
@@ -207,7 +207,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.7)
-    racc (1.6.0)
+    racc (1.6.1)
     rack (2.2.3.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
