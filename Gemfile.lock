@@ -124,8 +124,8 @@ GEM
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
     faraday-net_http (1.0.1)
-    globalid (0.4.2)
-      activesupport (>= 4.2.0)
+    globalid (1.0.1)
+      activesupport (>= 5.0)
     headless (2.3.1)
     http-2-next (0.3.0)
     http-cookie (1.0.5)
@@ -134,7 +134,7 @@ GEM
     httpx (0.11.1)
       http-2-next (>= 0.1.2)
       timers
-    i18n (1.10.0)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -188,7 +188,7 @@ GEM
     mimemagic (0.3.5)
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
-    minitest (5.15.0)
+    minitest (5.17.0)
     multipart-post (2.1.1)
     murmurhash3 (0.1.6)
     net-http-digest_auth (1.4.1)
@@ -258,7 +258,7 @@ GEM
     sqlite3 (1.4.2)
     thor (1.2.1)
     timers (4.3.2)
-    tzinfo (2.0.4)
+    tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
       unf_ext
@@ -275,7 +275,7 @@ GEM
       activerecord (>= 4.2)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.5.4)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby
