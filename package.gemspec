@@ -16,7 +16,5 @@ Gem::Specification.new do |s|
   ]
 
   s.add_dependency 'mechanize', '>= 2.7', '<= 2.8'
-  s.add_dependency 'rails_com', '~> 1.2'
-
   s.add_development_dependency 'sqlite3', '~> 1.3'
 end
